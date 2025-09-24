@@ -8,6 +8,12 @@ A groundbreaking, privacy-preserving, decentralized gaming identity platform tha
 
 Moca Passport represents the next evolution of gaming identity - a paradigm shift from platform-locked achievements to a universal, user-owned credential system that revolutionizes how gamers prove skill, build reputation, and connect with communities across the entire gaming ecosystem.
 
+## Demo & Deployment
+
+- **Live Application:** [https://moca-passport.vercel.app/](https://moca-passport.vercel.app/)  
+- **Demo Video:** [Watch here](https://drive.google.com/file/d/1kW-OL3FUv95-WCvi491fU3ZMJl_TSTbm/view?usp=sharing)  
+- **MocaPassport PRD:** [View PRD](https://broadleaf-language-d00.notion.site/MocaPassport-PRD-Proof-of-Build-276d88d6b3ff8000aca4fef5d2de8d70)
+
 ## Architecture Overview
 
 ```mermaid
@@ -264,12 +270,6 @@ moca-passport/
 - One-click guild applications replacing lengthy verification processes
 - Automatic reputation building across all gaming activities
 - Privacy-first approach that puts users in control of their data
-
-## Demo & Deployment
-
-**Live Application**: [https://moca-passport.vercel.app/]
-**Demo Video**: [https://drive.google.com/file/d/1kW-OL3FUv95-WCvi491fU3ZMJl_TSTbm/view?usp=sharing]
-**MocaPassport PRD**: [https://broadleaf-language-d00.notion.site/MocaPassport-PRD-Proof-of-Build-276d88d6b3ff8000aca4fef5d2de8d70]
 
 ## Future Vision
 
