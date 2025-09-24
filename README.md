@@ -267,9 +267,9 @@ moca-passport/
 
 ## Demo & Deployment
 
-**Live Application**: [Deployment URL]
-**Demo Video**: [Comprehensive Feature Walkthrough]
-**Technical Documentation**: [API Reference & Integration Guides]
+**Live Application**: [https://moca-passport.vercel.app/]
+**Demo Video**: [https://drive.google.com/file/d/1kW-OL3FUv95-WCvi491fU3ZMJl_TSTbm/view?usp=sharing]
+**MocaPassport PRD**: [https://broadleaf-language-d00.notion.site/MocaPassport-PRD-Proof-of-Build-276d88d6b3ff8000aca4fef5d2de8d70]
 
 ## Future Vision
 
