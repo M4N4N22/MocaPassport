@@ -190,8 +190,9 @@ npm install
 ### Environment Configuration
 ```bash
 # AIR Account Services
-NEXT_PUBLIC_AIR_ACCOUNT_API_KEY=your_api_key
-NEXT_PUBLIC_AIR_CREDENTIAL_ENDPOINT=your_credential_endpoint
+NEXT_PUBLIC_AIR_PARTNER_ID=your_partner_id
+NEXT_PUBLIC_AIR_ISSUER_DID=your_issuer_did
+NEXT_PUBLIC_AIR_VERIFIER_DID=your_verifier_did
 
 # Moca Chain Configuration
 NEXT_PUBLIC_MOCA_CHAIN_RPC=your_rpc_endpoint
