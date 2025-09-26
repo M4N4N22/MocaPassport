@@ -412,13 +412,10 @@ POST /api/whitelabel/{instanceId}/deploy
 - **Network Effects**: Cross-vertical credential portability creates user stickiness
 - **Partnership Opportunities**: Integration with industry leaders in each vertical
 
-## Demo & Documentation
+## Demo & Deployment
 
-**Live Universal Platform**: [Platform Demo URL]
-**Gaming Vertical Demo**: [Gaming Demo URL]
-**Multi-Vertical Showcase**: [Interactive Vertical Switcher]
-**Developer Documentation**: [API Reference & Integration Guides]
-**Whitelabel Configuration**: [Customization Builder Interface]
+**Live Application**: [(https://moca-passport.vercel.app/)]
+**Demo Video**: [(https://drive.google.com/file/d/1kW-OL3FUv95-WCvi491fU3ZMJl_TSTbm/view?usp=sharing)]
 
 ## Roadmap & Vision
 
