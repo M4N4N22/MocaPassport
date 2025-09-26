@@ -3,82 +3,234 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ShieldCheck, Users, Trophy, Link2 } from "lucide-react";
+import PlatformFeatures from "@/components/landing/PlatformFeatures";
+import DeveloperSection from "@/components/landing/DeveloperSection";
+import Image from "next/image";
+import {
+  ShieldCheck,
+  Link2,
+  EyeOff,
+  Palette,
+  Building2,
+  Globe2,
+} from "lucide-react";
 
 export default function Home() {
+  const coreCapabilities = [
+    {
+      title: "Privacy-Preserving Credentials",
+      desc: "Verify user identity and credentials without exposing sensitive data.",
+      icon: <EyeOff className="h-5 w-5 text-red-600" />,
+    },
+    {
+      title: "Cross-Platform Verification",
+      desc: "Connect users across apps, games, and platforms seamlessly.",
+      icon: <Link2 className="h-5 w-5 text-red-600" />,
+    },
+    {
+      title: "Zero-Knowledge Proofs",
+      desc: "Prove facts about a user without sharing the underlying data.",
+      icon: <ShieldCheck className="h-5 w-5 text-red-600" />,
+    },
+    {
+      title: "Whitelabel Customization",
+      desc: "Tailor branding, UI, and flows for your product or platform.",
+      icon: <Palette className="h-5 w-5 text-red-600" />,
+    },
+    {
+      title: "Enterprise Security",
+      desc: "Built for compliance and security in regulated industries.",
+      icon: <Building2 className="h-5 w-5 text-red-600" />,
+    },
+    {
+      title: "Multi-Industry Scalability",
+      desc: "Supports gaming, finance, healthcare, retail, travel, and more.",
+      icon: <Globe2 className="h-5 w-5 text-red-600" />,
+    },
+  ];
+
+  const solutions = [
+    {
+      href: "/solutions/gaming",
+      label: "Gaming",
+      desc: "Enable seamless management of player achievements, tournaments, guilds, and in-game credentials across platforms.",
+    },
+    {
+      href: "/solutions/finance",
+      label: "Finance",
+      desc: "Simplify KYC, AML, and regulatory compliance while securely verifying financial identities for users and institutions.",
+    },
+    {
+      href: "/solutions/retail",
+      label: "Retail",
+      desc: "Enhance loyalty programs, verify product authenticity, and streamline customer transactions in-store and online.",
+    },
+    {
+      href: "/solutions/healthcare",
+      label: "Healthcare",
+      desc: "Securely manage medical credentials, patient consent, and staff identity while complying with privacy regulations.",
+    },
+    {
+      href: "/solutions/travel",
+      label: "Travel",
+      desc: "Verify passports, loyalty accounts, and traveler identity efficiently, reducing friction for bookings and check-ins.",
+    },
+    {
+      href: "/solutions/education",
+      label: "Education",
+      desc: "Issue, verify, and manage certificates, credentials, and course completions with secure, privacy-preserving infrastructure.",
+    },
+    {
+      href: "/solutions/enterprise",
+      label: "Enterprise",
+      desc: "Manage employee access, enforce compliance, and streamline identity verification across complex organizations.",
+    },
+    {
+      href: "/solutions/creator",
+      label: "Creator Economy",
+      desc: "Support subscriptions, royalties, and identity verification for creators and their communities, ensuring secure and transparent interactions.",
+    },
+  ];
+
   return (
-    <main className="relative">
-      <section className="relative isolate overflow-hidden">
+    <main className="relative bg-background text-foreground ">
+      {/* Hero Section */}
+      <section className="relative isolate overflow-hidden ">
         <div
-          className="absolute inset-0 -z-10 opacity-20"
+          className="absolute inset-0 -z-10 opacity-10"
           style={{
             backgroundImage:
-              "url(https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1920&auto=format&fit=crop)",
+              "url(https://images.unsplash.com/photo-1527443224154-c4f2a9cf5ee3?q=80&w=1920&auto=format&fit=crop)",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         />
-        <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28 lg:flex lg:items-center lg:gap-x-16">
-          <div className="mx-auto max-w-2xl lg:mx-0 lg:flex-auto">
-            <Badge className="bg-red-600 text-white hover:bg-red-500">New</Badge>
-            <h1 className="mt-6 text-4xl font-semibold tracking-tight sm:text-6xl">
-              Moca Passport
+        <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:flex lg:items-center lg:gap-x-16">
+          <div className="mx-auto w-1/2 lg:mx-0 lg:flex-auto">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-background/50 px-3 py-1 text-sm font-medium text-foreground/70 ring-1 ring-foreground/20">
+              Powered by Moca Network
+            </div>
+            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
+              Build Trust Across Platforms with Universal Identity
+              Infrastructure
             </h1>
-            <p className="mt-4 max-w-xl text-base/7 text-foreground/80 sm:text-lg/8">
-              The Universal Gamer Credential. Own your gaming identity, connect accounts,
-              showcase achievements, build reputation, join guilds, and control privacy with ZK.
+            <p className="mt-6 text-lg text-foreground/70 sm:text-xl">
+              Secure, privacy-first identity verification and credential
+              management for apps, games, enterprises, and beyond.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Button asChild className="bg-red-600 text-white hover:bg-red-500">
-                <Link href="/auth">Get Started</Link>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button
+                asChild
+                className="bg-red-600 text-white hover:bg-red-500"
+              >
+                <Link href="/contact">Request Access</Link>
               </Button>
-              <Button asChild variant="outline" className="border-foreground/20">
-                <Link href="/dashboard">Launch App</Link>
+              <Button
+                asChild
+                variant="outline"
+                className="border-foreground/20"
+              >
+                <Link href="/dashboard">Explore Demo</Link>
               </Button>
+            </div>
+          </div>
+          <div className="relative w-1/2 mx-auto">
+            <div className="relative overflow-hidden rounded-2xl shadow-large hover-lift">
+              <Image
+                width={1920}
+                height={1080}
+                src="/hero-platform.jpg"
+                alt="Universal Identity Infrastructure Platform Dashboard"
+                className="w-full h-auto"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" />
+            </div>
+
+            {/* Floating Stats */}
+            <div className="absolute -bottom-8 right-0 left-0">
+              <div className="flex flex-col sm:flex-row gap-4 bg-card/50  rounded-xl p-6 shadow-medium">
+                <div className="text-center w-full">
+                  <div className="text-2xl font-bold text-foreground">
+                    99.9%
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Uptime SLA
+                  </div>
+                </div>
+                <div className="hidden sm:block h-10 w-px bg-border" />
+                <div className="text-center w-full">
+                  <div className="text-2xl font-bold text-foreground">
+                    &lt;100ms
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Response Time
+                  </div>
+                </div>
+                <div className="hidden sm:block h-10 w-px bg-border" />
+                <div className="text-center w-full">
+                  <div className="text-2xl font-bold text-foreground">50+</div>
+                  <div className="text-sm text-muted-foreground">
+                    Integrations
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-12 sm:py-16">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0">
-              <CardTitle className="text-base font-medium">Connect Accounts</CardTitle>
-              <Link2 className="h-5 w-5 text-red-600" />
-            </CardHeader>
-            <CardContent className="text-sm text-foreground/80">
-              Link Steam, Xbox, PlayStation, Epic, and more to unify your gamer graph.
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0">
-              <CardTitle className="text-base font-medium">Achievements</CardTitle>
-              <Trophy className="h-5 w-5 text-red-600" />
-            </CardHeader>
-            <CardContent className="text-sm text-foreground/80">
-              Showcase cross-platform achievements and lifetime milestones.
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0">
-              <CardTitle className="text-base font-medium">Guilds</CardTitle>
-              <Users className="h-5 w-5 text-red-600" />
-            </CardHeader>
-            <CardContent className="text-sm text-foreground/80">
-              Join or create communities. Earn reputation via raids, leagues, and events.
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0">
-              <CardTitle className="text-base font-medium">Privacy & ZK</CardTitle>
-              <ShieldCheck className="h-5 w-5 text-red-600" />
-            </CardHeader>
-            <CardContent className="text-sm text-foreground/80">
-              Control visibility per-attribute. Prove skill with zero-knowledge proofs.
-            </CardContent>
-          </Card>
+      {/* Core Capabilities Section */}
+      <PlatformFeatures />
+      <DeveloperSection />
+
+      {/* Industries Section */}
+      <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28 bg-gray-50">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-semibold">Industries Powered</h2>
+          <p className="mt-2 text-foreground/70 max-w-xl mx-auto">
+            Our infrastructure supports multiple industries with privacy,
+            security, and scalability at the core.
+          </p>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
+          {solutions.map((i) => (
+            <Link
+              key={i.href}
+              href={i.href}
+              className="rounded-lg border bg-white p-6 hover:shadow-lg transition-shadow"
+            >
+              <h3 className="text-xl font-medium">{i.label}</h3>
+              <p className="mt-2 text-foreground/70">{i.desc}</p>
+
+              {i.label === "Gaming" ? (
+                <span className="mt-4 inline-block text-sm text-red-600 font-semibold">
+                  Explore →
+                </span>
+              ) : (
+                <span className="mt-4 inline-block text-sm text-primary bg-primary/10 px-3 py-1 rounded-full font-medium">
+                  Coming soon
+                </span>
+              )}
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="mx-auto max-w-7xl px-6 py-20 text-center">
+        <h2 className="text-3xl font-semibold">Ready to Get Started?</h2>
+        <p className="mt-4 text-foreground/70 max-w-md mx-auto">
+          Secure your infrastructure access and start building privacy-first,
+          scalable identity solutions today.
+        </p>
+        <div className="mt-8 flex justify-center gap-4">
+          <Button asChild className="bg-red-600 text-white hover:bg-red-500">
+            <Link href="/contact">Request Access</Link>
+          </Button>
+          <Button asChild variant="outline" className="border-foreground/20">
+            <Link href="/demo/gaming">Explore Demo</Link>
+          </Button>
         </div>
       </section>
     </main>
