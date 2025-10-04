@@ -8,7 +8,7 @@ import DashboardTabs from "@/components/dashboard/DashboardTabs";
 import { useAirKit } from "@/hooks/useAirKit";
 
 export default function DashboardPage() {
-  const { user, loading } = useAirKit();
+  const { user, initialized, loading, error, login } = useAirKit();
   const [connectedAccounts, setConnectedAccounts] = useState<string[]>([]);
   const [achievements, setAchievements] = useState<string[]>([]);
   const [proofs, setProofs] = useState<number>(0);
@@ -31,7 +31,21 @@ export default function DashboardPage() {
     }
   };
 
-  if (loading) {
+  const handleLoginClick = async () => {
+    if (!initialized) {
+      console.warn("[DashboardPage] AirService not initialized yet");
+      return;
+    }
+
+    try {
+      await login();
+      console.log("[DashboardPage] Login successful:", user);
+    } catch (err) {
+      console.error("[DashboardPage] Login failed:", err);
+    }
+  };
+
+  if (loading || !initialized) {
     return (
       <div className="flex items-center justify-center h-[70vh]">
         <Loader2 className="animate-spin h-10 w-10 text-red-600" />
@@ -39,9 +53,20 @@ export default function DashboardPage() {
     );
   }
 
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-[70vh] text-red-600">
+        <p>Error initializing AirKit: {error}</p>
+        <button onClick={handleLoginClick} className="ml-4 underline">
+          Retry
+        </button>
+      </div>
+    );
+  }
+
   return (
     <main className="mx-auto max-w-7xl px-6 py-10">
-      <DashboardHeader />
+      <DashboardHeader loginCallback={handleLoginClick} user={user} />
       {user?.isLoggedIn && (
         <>
           <DashboardTopCards
@@ -54,6 +79,7 @@ export default function DashboardPage() {
             handleConnect={handleConnect}
             achievements={achievements}
             reputation={reputation}
+            user={user}
           />
         </>
       )}

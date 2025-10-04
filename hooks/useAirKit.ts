@@ -2,43 +2,48 @@
 import { useState, useEffect } from "react";
 import { AirService, BUILD_ENV, AirLoginResult } from "@mocanetwork/airkit";
 
-let airService: AirService | null = null;
+let airService: AirService | null = null; // singleton instance
 
 export function useAirKit() {
   const [user, setUser] = useState<AirLoginResult | null>(null);
   const [loading, setLoading] = useState(true);
+  const [initialized, setInitialized] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const initAir = async () => {
-      console.log("[AirKit] Initializing AirService...");
+    const initAirService = async () => {
+      if (airService) return; 
 
       try {
         airService = new AirService({
           partnerId: process.env.NEXT_PUBLIC_AIR_PARTNER_ID!,
         });
-        console.log("[AirKit] AirService instance created:", airService);
 
         await airService.init({
           buildEnv: BUILD_ENV.SANDBOX,
           enableLogging: true,
           skipRehydration: false,
         });
-        console.log("[AirKit] AirService initialized");
 
-        const loginResult = await airService.login();
-        console.log("[AirKit] Login result:", loginResult);
-
-        setUser(loginResult);
-      } catch (err) {
-        console.error("[AirKit] Error during initialization/login:", err);
-      } finally {
+        setInitialized(true);
         setLoading(false);
-        console.log("[AirKit] Loading finished");
+      } catch (err) {
+        console.error("[AirKit] init error:", err);
+        setError(String(err));
+        setLoading(false);
       }
     };
 
-    initAir();
+    initAirService();
   }, []);
 
-  return { user, loading, airService };
+  const login = async () => {
+    if (!airService) throw new Error("AirService not initialized");
+
+    const loginResult = await airService.login();
+    setUser(loginResult);
+    return loginResult;
+  };
+
+  return { airService, user, loading, initialized, error, login };
 }
