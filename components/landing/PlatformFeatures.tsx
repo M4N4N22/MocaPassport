@@ -41,7 +41,7 @@ const PlatformFeatures = () => {
   ];
 
   return (
-    <section id="platform" className="section-padding bg-gradient-subtle mx-auto max-w-7xl px-6 py-24 sm:py-32 bg-gray-50">
+    <section id="platform" className="section-padding bg-gradient-subtle mx-auto max-w-7xl px-6 py-24 sm:py-32 ">
       <div className="container-responsive">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
@@ -52,11 +52,11 @@ const PlatformFeatures = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 ">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-1 ">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-white p-6 hover:shadow-lg rounded-2xl"
+              className="bg-card p-8 hover:shadow-lg rounded-2xl"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">

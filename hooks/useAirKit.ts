@@ -10,23 +10,34 @@ export function useAirKit() {
 
   useEffect(() => {
     const initAir = async () => {
-      airService = new AirService({
-        partnerId: process.env.NEXT_PUBLIC_AIR_PARTNER_ID!,
-      });
+      console.log("[AirKit] Initializing AirService...");
 
-      await airService.init({
-        buildEnv: BUILD_ENV.SANDBOX,
-        enableLogging: true,
-        skipRehydration: false,
-      });
+      try {
+        airService = new AirService({
+          partnerId: process.env.NEXT_PUBLIC_AIR_PARTNER_ID!,
+        });
+        console.log("[AirKit] AirService instance created:", airService);
 
-      const loginResult = await airService.login();
-      console.log("AIR login result:", loginResult); 
-      setUser(loginResult);
-      setLoading(false);
+        await airService.init({
+          buildEnv: BUILD_ENV.SANDBOX,
+          enableLogging: true,
+          skipRehydration: false,
+        });
+        console.log("[AirKit] AirService initialized");
+
+        const loginResult = await airService.login();
+        console.log("[AirKit] Login result:", loginResult);
+
+        setUser(loginResult);
+      } catch (err) {
+        console.error("[AirKit] Error during initialization/login:", err);
+      } finally {
+        setLoading(false);
+        console.log("[AirKit] Loading finished");
+      }
     };
 
-    initAir().catch(console.error);
+    initAir();
   }, []);
 
   return { user, loading, airService };

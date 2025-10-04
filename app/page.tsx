@@ -143,12 +143,12 @@ export default function Home() {
                 alt="Universal Identity Infrastructure Platform Dashboard"
                 className="w-full h-auto"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" />
+              <div className="absolute inset-0 " />
             </div>
 
             {/* Floating Stats */}
             <div className="absolute -bottom-8 right-0 left-0">
-              <div className="flex flex-col sm:flex-row gap-4 bg-card/50  rounded-xl p-6 shadow-medium">
+              <div className="flex flex-col sm:flex-row gap-4 bg-gradient-to-b from-background/80 via-background to-background  rounded-xl p-6 shadow-medium">
                 <div className="text-center w-full">
                   <div className="text-2xl font-bold text-foreground">
                     99.9%
@@ -184,7 +184,7 @@ export default function Home() {
       <DeveloperSection />
 
       {/* Industries Section */}
-      <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28 bg-gray-50">
+      <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28 ">
         <div className="mb-12 text-center">
           <h2 className="text-3xl font-semibold">Industries Powered</h2>
           <p className="mt-2 text-foreground/70 max-w-xl mx-auto">
@@ -198,7 +198,7 @@ export default function Home() {
             <Link
               key={i.href}
               href={i.href}
-              className="rounded-lg border bg-white p-6 hover:shadow-lg transition-shadow"
+              className="rounded-lg border  p-6 hover:shadow-lg transition-shadow"
             >
               <h3 className="text-xl font-medium">{i.label}</h3>
               <p className="mt-2 text-foreground/70">{i.desc}</p>
