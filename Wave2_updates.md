@@ -2,7 +2,7 @@
 
 This wave introduces major updates to the MocaPassport ecosystem, including a full MocaLogin refactor, MocaIdentity hook, multi-step gaming credential issuance, robust credential handling, and modular SDK organization via `moca-sdk`.
 
-## Key Notes
+## 1. Key Notes
 
 * `moca-sdk` handles all authentication, identity management, credential issuance, and utilities
 * `next-app` contains multi-step UI for gamer credential creation, demo pages, and integration examples
