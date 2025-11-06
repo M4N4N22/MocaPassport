@@ -30,12 +30,24 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var index_exports = {};
 __export(index_exports, {
+  CredentialPreview: () => CredentialPreview,
+  GameSelector: () => GameSelector,
+  IssueCredentialButton: () => IssueCredentialButton2,
+  LogoutButton: () => LogoutButton,
   MocaConnectWidget: () => MocaConnectWidget,
   MocaGamingPassport: () => MocaGamingPassport,
   MocaLoginButton: () => MocaLoginButton,
+  MocaThemeProvider: () => MocaThemeProvider,
   MocaTournamentVerifier: () => MocaTournamentVerifier,
   MocaUserPanel: () => MocaUserPanel,
   MocaVerificationDashboard: () => MocaVerificationDashboard,
+  PlatformCard: () => PlatformCard,
+  PlatformConnectButton: () => PlatformConnectButton,
+  PlatformConnectList: () => PlatformConnectList,
+  PlatformConnectionStatus: () => PlatformConnectionStatus,
+  PlatformSelector: () => PlatformSelector,
+  RankSelector: () => RankSelector,
+  UserIdentityBadge: () => UserIdentityBadge,
   useMocaIdentity: () => useMocaIdentity
 });
 module.exports = __toCommonJS(index_exports);
@@ -145,10 +157,14 @@ var Button = React.forwardRef(
   ({ className, variant = "default", size = "default", ...props }, ref) => {
     const base = "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none disabled:opacity-50 disabled:pointer-events-none";
     const variants = {
-      default: "bg-black text-white hover:bg-neutral-800",
-      secondary: "bg-foreground hover text-background hover:bg-neutral-200",
-      outline: "border border-zinc-800 bg-white text-foreground hover:bg-zinc-100 active:bg-zinc-200",
-      ghost: "bg-transparent text-neutral-900 hover:bg-neutral-100"
+      // Primary CTA → accent color
+      default: "bg-[var(--moca-accent)] text-[var(--moca-accent-fg)] hover:bg-[var(--moca-accent-hover)]",
+      // Secondary button → surface-muted contrast
+      secondary: "bg-[var(--moca-surface-muted)] text-[var(--moca-text)] hover:bg-[var(--moca-surface)]",
+      // Outline → transparent with border themed
+      outline: "border border-[var(--moca-border)] bg-[var(--moca-surface)] text-[var(--moca-text)] hover:bg-[var(--moca-surface-muted)]",
+      // Ghost → invisible background
+      ghost: "bg-transparent text-[var(--moca-text)] hover:bg-[var(--moca-surface-muted)]"
     };
     const sizes = {
       default: "h-9 px-4 py-2",
@@ -969,14 +985,759 @@ function MocaVerificationDashboard({
     )) })
   ] });
 }
+
+// src/verticals/gaming/components/platforms/PlatformCard.tsx
+var import_lucide_react7 = require("lucide-react");
+var import_jsx_runtime10 = require("react/jsx-runtime");
+function PlatformCard({
+  name,
+  icon,
+  connected = false,
+  onConnect,
+  className,
+  variant = "default"
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(
+    "div",
+    {
+      className: cn(
+        "flex items-center justify-between p-4 rounded-xl transition-all duration-200 hover:shadow-md",
+        className
+      ),
+      style: {
+        background: connected ? "var(--moca-surface)" : "var(--moca-surface)",
+        color: connected ? "var(--moca-accent-fg)" : "var(--moca-text)"
+      },
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex items-center gap-3", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+            "div",
+            {
+              className: "w-10 h-10 flex items-center justify-center rounded-full text-lg font-bold",
+              style: {
+                background: "var(--moca-accent)",
+                color: "var(--moca-accent-fg)"
+              },
+              children: icon ?? name.charAt(0)
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)("div", { className: "flex flex-col", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { style: { color: "var(--moca-text)" }, className: "font-semibold", children: name }),
+            /* @__PURE__ */ (0, import_jsx_runtime10.jsx)("span", { className: "text-xs", style: { color: "var(--moca-muted)" }, children: connected ? "Connected" : "Not connected" })
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(
+          "button",
+          {
+            onClick: onConnect,
+            className: cn(
+              "rounded-lg font-medium ml-4 px-4 py-2 flex items-center gap-2 transition-all duration-200",
+              variant === "outline" && "border bg-transparent"
+            ),
+            style: {
+              background: connected ? "var(--moca-accent)" : "var(--moca-surface-muted)",
+              color: connected ? "var(--moca-accent-fg)" : "var(--moca-text)",
+              borderColor: "var(--moca-border)"
+            },
+            onMouseEnter: (e) => {
+              e.currentTarget.style.opacity = "0.8";
+              if (connected)
+                e.currentTarget.style.background = "var(--moca-accent-hover)";
+              else
+                e.currentTarget.style.background = "var(--moca-surface-muted)";
+            },
+            onMouseLeave: (e) => {
+              e.currentTarget.style.opacity = "1";
+              if (connected)
+                e.currentTarget.style.background = "var(--moca-accent)";
+              else
+                e.currentTarget.style.background = "var(--moca-surface-muted)";
+            },
+            children: connected ? /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(import_jsx_runtime10.Fragment, { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(import_lucide_react7.CheckCircle2, { className: "w-4 h-4" }),
+              " Connected"
+            ] }) : /* @__PURE__ */ (0, import_jsx_runtime10.jsxs)(import_jsx_runtime10.Fragment, { children: [
+              /* @__PURE__ */ (0, import_jsx_runtime10.jsx)(import_lucide_react7.Link2, { className: "w-4 h-4" }),
+              " Connect"
+            ] })
+          }
+        )
+      ]
+    }
+  );
+}
+
+// src/verticals/gaming/components/platforms/PlatformConnectList.tsx
+var import_jsx_runtime11 = require("react/jsx-runtime");
+function PlatformConnectList({
+  platforms,
+  columns = "auto",
+  className
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+    "div",
+    {
+      className: columns === "auto" ? "grid grid-cols-2 md:grid-cols-3 gap-4" : `grid grid-cols-${columns} gap-4 ${className ?? ""}`,
+      children: platforms.map((platform, index) => /* @__PURE__ */ (0, import_jsx_runtime11.jsx)(
+        PlatformCard,
+        {
+          name: platform.name,
+          icon: platform.icon,
+          connected: platform.connected,
+          onConnect: platform.onConnect,
+          variant: platform.variant
+        },
+        index
+      ))
+    }
+  );
+}
+
+// src/verticals/gaming/components/platforms/PlatformSelector.tsx
+var import_react9 = require("react");
+var import_framer_motion5 = require("framer-motion");
+var import_lucide_react8 = require("lucide-react");
+var import_jsx_runtime12 = require("react/jsx-runtime");
+function PlatformSelector({
+  platforms,
+  selectedId,
+  onSelect,
+  className
+}) {
+  const [open, setOpen] = (0, import_react9.useState)(false);
+  const selectedPlatform = platforms.find((p) => p.id === selectedId);
+  return /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: cn("relative", className), children: [
+    /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)(
+      "button",
+      {
+        onClick: () => setOpen(!open),
+        className: cn(
+          "flex items-center justify-between px-4 py-2 rounded-lg border w-full transition-all",
+          "bg-[var(--moca-bg)] border-border text-[var(--moca-text-on-bg)]"
+        ),
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)("div", { className: "flex items-center gap-2", children: [
+            selectedPlatform?.icon && /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+              "img",
+              {
+                src: selectedPlatform.icon,
+                width: 20,
+                height: 20,
+                alt: selectedPlatform.name,
+                className: "rounded-sm object-contain"
+              }
+            ),
+            /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { className: "font-medium", children: selectedPlatform?.name ?? "Select platform" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+            import_lucide_react8.ChevronDown,
+            {
+              className: cn("w-4 h-4 transition-transform", open && "rotate-180")
+            }
+          )
+        ]
+      }
+    ),
+    open && /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+      import_framer_motion5.motion.div,
+      {
+        initial: { opacity: 0, y: 6 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.15 },
+        className: "absolute z-20 mt-2 w-full rounded-lg border bg-[var(--moca-bg)] border-border shadow-lg",
+        children: platforms.map((platform) => /* @__PURE__ */ (0, import_jsx_runtime12.jsxs)(
+          "button",
+          {
+            onClick: () => {
+              onSelect?.(platform.id);
+              setOpen(false);
+            },
+            className: cn(
+              "flex items-center gap-2 w-full px-4 py-2 text-left hover:bg-[var(--moca-accent-bg)] transition-colors"
+            ),
+            children: [
+              platform.icon && /* @__PURE__ */ (0, import_jsx_runtime12.jsx)(
+                "img",
+                {
+                  src: platform.icon,
+                  width: 18,
+                  height: 18,
+                  alt: platform.name,
+                  className: "rounded-sm object-contain"
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime12.jsx)("span", { children: platform.name })
+            ]
+          },
+          platform.id
+        ))
+      }
+    )
+  ] });
+}
+
+// src/verticals/gaming/components/platforms/PlatformConnectionStatus.tsx
+var import_jsx_runtime13 = require("react/jsx-runtime");
+function PlatformConnectionStatus({
+  platforms,
+  children,
+  className
+}) {
+  const total = platforms.length;
+  const connectedCount = platforms.filter((p) => p.connected).length;
+  if (children) {
+    return /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(import_jsx_runtime13.Fragment, { children: children({
+      connectedCount,
+      total,
+      platforms
+    }) });
+  }
+  return /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)(
+    "div",
+    {
+      className: cn(
+        "flex items-center gap-2 text-sm text-[var(--moca-text-on-bg)]",
+        className
+      ),
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsxs)("span", { className: "font-medium", children: [
+          connectedCount,
+          " / ",
+          total,
+          " connected"
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("div", { className: "flex -space-x-2", children: platforms.filter((p) => p.connected && p.icon).map((p) => /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
+          "div",
+          {
+            className: "w-5 h-5 rounded-full overflow-hidden border border-[var(--moca-border)] bg-[var(--moca-bg)]",
+            children: p.icon
+          },
+          p.id
+        )) })
+      ]
+    }
+  );
+}
+
+// src/verticals/gaming/components/platforms/PlatformConnectButton.tsx
+var import_jsx_runtime14 = require("react/jsx-runtime");
+function PlatformConnectButton({
+  platformName,
+  icon,
+  connected = false,
+  className,
+  onClick
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)(
+    "button",
+    {
+      onClick,
+      className: cn(
+        "flex items-center justify-between w-full px-3 py-2 rounded-lg border transition-all text-sm",
+        "border-[var(--moca-border)] bg-[var(--moca-surface)] text-[var(--moca-text)]",
+        "hover:bg-[var(--moca-surface-muted)]",
+        className
+      ),
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsxs)("div", { className: "flex items-center gap-3", children: [
+          icon && /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "w-5 h-5 flex items-center justify-center text-[var(--moca-text)]", children: icon }),
+          /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("span", { className: "font-medium", children: platformName })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
+          "span",
+          {
+            className: cn(
+              "text-xs px-2 py-1 rounded-md border",
+              connected ? "border-[var(--moca-border)] text-[var(--moca-muted)]" : "border-transparent bg-[var(--moca-accent-bg)] text-[var(--moca-accent-fg)] hover:bg-[var(--moca-accent-hover)]"
+            ),
+            children: connected ? "Connected" : "Connect"
+          }
+        )
+      ]
+    }
+  );
+}
+
+// src/verticals/gaming/components/gaming-profile/GameSelector.tsx
+var import_react10 = require("react");
+var import_jsx_runtime15 = require("react/jsx-runtime");
+function GameSelector({
+  games,
+  selectedId,
+  onSelect,
+  layout = "grid",
+  className
+}) {
+  const [open, setOpen] = (0, import_react10.useState)(false);
+  const selected = games.find((g) => g.id === selectedId);
+  if (layout === "grid") {
+    return /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: cn("grid grid-cols-2 sm:grid-cols-3 gap-3", className), children: games.map((game) => {
+      const isSelected = selectedId === game.id;
+      return /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(
+        "button",
+        {
+          onClick: () => onSelect?.(game.id),
+          className: cn(
+            "flex items-center gap-3 px-4 py-3 rounded-lg border transition-all duration-150",
+            "hover:shadow-sm"
+          ),
+          style: {
+            background: "var(--moca-surface)",
+            color: "var(--moca-text)",
+            borderColor: isSelected ? "var(--moca-accent)" : "var(--moca-border)"
+          },
+          onMouseEnter: (e) => e.currentTarget.style.background = "var(--moca-surface-muted)",
+          onMouseLeave: (e) => e.currentTarget.style.background = "var(--moca-surface)",
+          children: [
+            game.icon && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
+              "img",
+              {
+                src: game.icon,
+                alt: game.name,
+                className: "w-5 h-5 rounded-sm object-contain"
+              }
+            ),
+            /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { className: "font-medium", children: game.name })
+          ]
+        },
+        game.id
+      );
+    }) });
+  }
+  return /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: cn("relative", className), children: [
+    /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(
+      "button",
+      {
+        onClick: () => setOpen(!open),
+        className: "flex items-center justify-between w-full px-4 py-2 rounded-lg  transition-all duration-150",
+        style: {
+          background: "var(--moca-surface)",
+          color: "var(--moca-text)",
+          borderColor: "var(--moca-border)"
+        },
+        onMouseEnter: (e) => e.currentTarget.style.background = "var(--moca-surface-muted)",
+        onMouseLeave: (e) => e.currentTarget.style.background = "var(--moca-surface)",
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "flex items-center gap-2", children: [
+            selected?.icon && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("img", { src: selected.icon, width: 18, height: 18 }),
+            /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { children: selected?.name ?? "Select game" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { style: { color: "var(--moca-muted)" }, children: "\u25BC" })
+        ]
+      }
+    ),
+    open && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
+      "div",
+      {
+        className: "absolute z-50 mt-2 w-full rounded-lg  shadow-lg transition-all duration-150",
+        style: {
+          background: "var(--moca-surface)",
+          borderColor: "var(--moca-border)"
+        },
+        children: games.map((game) => /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(
+          "button",
+          {
+            onClick: () => {
+              onSelect?.(game.id);
+              setOpen(false);
+            },
+            className: "flex items-center gap-2 w-full px-4 py-2 text-left transition-all duration-100 rounded-md",
+            style: {
+              background: "var(--moca-surface)",
+              color: "var(--moca-text)"
+            },
+            onMouseEnter: (e) => {
+              e.currentTarget.style.background = "var(--moca-accent)";
+              e.currentTarget.style.color = "var(--moca-accent-fg)";
+            },
+            onMouseLeave: (e) => {
+              e.currentTarget.style.background = "var(--moca-surface)";
+              e.currentTarget.style.color = "var(--moca-text)";
+            },
+            children: [
+              game.icon && /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("img", { src: game.icon, width: 18, height: 18 }),
+              /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("span", { children: game.name })
+            ]
+          },
+          game.id
+        ))
+      }
+    )
+  ] });
+}
+
+// src/verticals/gaming/components/gaming-profile/RankSelector.tsx
+var import_react11 = require("react");
+var import_jsx_runtime16 = require("react/jsx-runtime");
+function RankSelector({
+  ranks,
+  selectedId,
+  onSelect,
+  layout = "grid",
+  className
+}) {
+  const [open, setOpen] = (0, import_react11.useState)(false);
+  const selected = ranks.find((r) => r.id === selectedId);
+  if (layout === "grid") {
+    return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("div", { className: cn("grid grid-cols-2 sm:grid-cols-3 gap-3", className), children: ranks.map((rank) => {
+      const isSelected = selectedId === rank.id;
+      return /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(
+        "button",
+        {
+          onClick: () => onSelect?.(rank.id),
+          className: cn(
+            "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-150",
+            "hover:shadow-sm"
+          ),
+          style: {
+            background: "var(--moca-surface)",
+            color: "var(--moca-text)",
+            borderColor: isSelected ? "var(--moca-accent)" : "var(--moca-border)",
+            boxShadow: isSelected ? "0 0 0 2px var(--moca-accent)" : "none"
+          },
+          onMouseEnter: (e) => e.currentTarget.style.background = "var(--moca-surface-muted)",
+          onMouseLeave: (e) => e.currentTarget.style.background = "var(--moca-surface)",
+          children: [
+            rank.icon && /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
+              "img",
+              {
+                src: rank.icon,
+                alt: rank.name,
+                className: "w-5 h-5 rounded-sm object-contain"
+              }
+            ),
+            /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("span", { className: "font-medium", children: rank.name })
+          ]
+        },
+        rank.id
+      );
+    }) });
+  }
+  return /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: cn("relative", className), children: [
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(
+      "button",
+      {
+        onClick: () => setOpen((o) => !o),
+        className: "flex items-center justify-between w-full px-4 py-2  rounded-lg transition-all duration-150",
+        style: {
+          background: "var(--moca-surface)",
+          color: "var(--moca-text)",
+          borderColor: "var(--moca-border)"
+        },
+        onMouseEnter: (e) => e.currentTarget.style.background = "var(--moca-surface-muted)",
+        onMouseLeave: (e) => e.currentTarget.style.background = "var(--moca-surface)",
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "flex items-center gap-2", children: [
+            selected?.icon && /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("img", { src: selected.icon, className: "w-5 h-5 object-contain" }),
+            /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("span", { children: selected?.name ?? "Select rank" })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("span", { style: { color: "var(--moca-muted)" }, children: "\u25BC" })
+        ]
+      }
+    ),
+    open && /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
+      "div",
+      {
+        className: "absolute z-50 mt-2 w-full rounded-lg  shadow-lg transition-all duration-150 max-h-64 overflow-y-auto",
+        style: {
+          background: "var(--moca-surface)",
+          borderColor: "var(--moca-border)"
+        },
+        children: ranks.map((rank) => /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(
+          "button",
+          {
+            onClick: () => {
+              onSelect?.(rank.id);
+              setOpen(false);
+            },
+            className: "flex items-center gap-2 w-full px-4 py-2 text-left rounded-md transition-all duration-100",
+            style: {
+              background: "var(--moca-surface)",
+              color: "var(--moca-text)"
+            },
+            onMouseEnter: (e) => {
+              e.currentTarget.style.background = "var(--moca-accent)";
+              e.currentTarget.style.color = "var(--moca-accent-fg)";
+            },
+            onMouseLeave: (e) => {
+              e.currentTarget.style.background = "var(--moca-surface)";
+              e.currentTarget.style.color = "var(--moca-text)";
+            },
+            children: [
+              rank.icon && /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("img", { src: rank.icon, className: "w-5 h-5 object-contain" }),
+              /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("span", { children: rank.name })
+            ]
+          },
+          rank.id
+        ))
+      }
+    )
+  ] });
+}
+
+// src/verticals/gaming/components/credential-flow/CredentialPreview.tsx
+var import_jsx_runtime17 = require("react/jsx-runtime");
+function CredentialPreview({
+  title = "Credential Preview",
+  description,
+  icon,
+  data = {},
+  groups,
+  labelMap = {},
+  exclude = [],
+  className
+}) {
+  const transform = (obj) => Object.entries(obj).filter(([key]) => !exclude.includes(key)).map(([key, value]) => ({
+    label: labelMap[key] || key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+    value: typeof value === "boolean" ? value ? "Yes" : "No" : value || "-"
+  }));
+  const defaultFields = !groups ? transform(data) : [];
+  return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
+    "div",
+    {
+      className: cn("rounded-xl p-6 flex flex-col gap-4", className),
+      style: {
+        background: "var(--moca-surface)",
+        borderColor: "var(--moca-border)",
+        color: "var(--moca-text)"
+      },
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "flex items-center gap-3", children: [
+          icon && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+            "div",
+            {
+              className: "w-8 h-8 flex items-center justify-center rounded-md",
+              style: {
+                background: "var(--moca-surface-muted)",
+                color: "var(--moca-text)"
+              },
+              children: icon
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "flex flex-col", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "font-semibold text-sm", children: title }),
+            description && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+              "span",
+              {
+                className: "text-xs",
+                style: { color: "var(--moca-muted)" },
+                children: description
+              }
+            )
+          ] })
+        ] }),
+        !groups && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "flex flex-col gap-2 text-sm", children: defaultFields.map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
+          "div",
+          {
+            className: "flex items-center justify-between border-b last:border-none pb-1",
+            style: {
+              borderColor: "var(--moca-border)"
+            },
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { style: { color: "var(--moca-muted)" }, children: item.label }),
+              /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "font-medium", children: item.value })
+            ]
+          },
+          idx
+        )) }),
+        groups && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "flex flex-col gap-6 text-sm", children: groups.map((group, i) => /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "flex flex-col gap-2", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+            "span",
+            {
+              className: "text-xs font-semibold uppercase tracking-wide",
+              style: { color: "var(--moca-muted)" },
+              children: group.label
+            }
+          ),
+          transform(group.data).map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
+            "div",
+            {
+              className: "flex items-center justify-between ",
+              style: {
+                borderColor: "var(--moca-border)"
+              },
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { style: { color: "var(--moca-muted)" }, children: item.label }),
+                /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "font-medium", children: item.value })
+              ]
+            },
+            idx
+          ))
+        ] }, i)) })
+      ]
+    }
+  );
+}
+
+// src/verticals/gaming/components/credential-flow/IssueCredentialButton.tsx
+var import_jsx_runtime18 = require("react/jsx-runtime");
+function IssueCredentialButton2({
+  label = "Issue Credential",
+  loading = false,
+  disabled = false,
+  className,
+  onClick
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(
+    "button",
+    {
+      onClick,
+      disabled: disabled || loading,
+      className: cn(
+        "px-4 py-2 rounded-lg text-sm font-medium transition-all w-full flex items-center justify-center gap-2",
+        "bg-[var(--moca-accent)] text-[var(--moca-accent-fg)] hover:bg-[var(--moca-accent-hover)]",
+        disabled || loading ? "opacity-60 cursor-not-allowed" : "cursor-pointer",
+        className
+      ),
+      children: [
+        loading && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "animate-spin h-3 w-3 border-[var(--moca-accent-fg)] border-t-transparent border-2 rounded-full" }),
+        label
+      ]
+    }
+  );
+}
+
+// src/verticals/gaming/components/auth/UserIdentityBadge.tsx
+var import_jsx_runtime19 = require("react/jsx-runtime");
+function UserIdentityBadge({
+  className,
+  avatar = "https://cdn.mocapassport.placeholder/avatar.png",
+  username = "Anonymous",
+  verified = false,
+  showBadge = true,
+  onClick
+}) {
+  const baseStyle = {
+    background: "var(--moca-surface)",
+    borderColor: "var(--moca-border)",
+    color: "var(--moca-text)",
+    transition: "all 0.2s ease-in-out"
+  };
+  const hoverStyle = {
+    background: "var(--moca-surface-muted)"
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
+    "button",
+    {
+      onClick,
+      className: cn(
+        "flex items-center gap-3 px-3 py-2 rounded-lg border text-left",
+        className
+      ),
+      style: baseStyle,
+      onMouseEnter: (e) => Object.assign(e.currentTarget.style, hoverStyle),
+      onMouseLeave: (e) => Object.assign(e.currentTarget.style, baseStyle),
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+          "img",
+          {
+            src: avatar,
+            alt: "user",
+            className: "w-8 h-8 rounded-md object-cover"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "flex flex-col text-left leading-tight", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("span", { className: "text-sm font-medium", children: username }),
+          showBadge && verified && /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+            "span",
+            {
+              className: "text-xs",
+              style: { color: "var(--moca-muted)" },
+              children: "Verified"
+            }
+          )
+        ] })
+      ]
+    }
+  );
+}
+
+// src/verticals/gaming/components/auth/LogoutButton.tsx
+var import_jsx_runtime20 = require("react/jsx-runtime");
+function LogoutButton({
+  className,
+  label = "Logout",
+  onClick
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+    "button",
+    {
+      onClick,
+      className: cn(
+        "px-3 py-2 rounded-lg border transition-all text-sm font-medium",
+        "bg-[var(--moca-surface)] border-[var(--moca-border)] text-[var(--moca-text)]",
+        "hover:bg-[var(--moca-surface-muted)]",
+        className
+      ),
+      children: label
+    }
+  );
+}
+
+// src/verticals/gaming/components/auth/MocaLoginButton.tsx
+var import_framer_motion6 = require("framer-motion");
+var import_lucide_react9 = require("lucide-react");
+var import_react12 = require("react");
+var import_jsx_runtime21 = require("react/jsx-runtime");
+
+// src/core/theme/MocaThemeProvider.tsx
+var import_react13 = require("react");
+var import_jsx_runtime22 = require("react/jsx-runtime");
+function MocaThemeProvider({
+  children,
+  theme = "system",
+  colors
+}) {
+  (0, import_react13.useEffect)(() => {
+    const root = document.documentElement;
+    const apply = (mode) => {
+      root.setAttribute("data-theme", mode);
+    };
+    if (theme === "system") {
+      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      apply(isDark ? "dark" : "light");
+    } else {
+      apply(theme);
+    }
+    if (colors) {
+      const map = {
+        accent: "accent",
+        accentFg: "accent-fg",
+        accentHover: "accent-hover",
+        surface: "surface",
+        surfaceMuted: "surface-muted",
+        border: "border",
+        muted: "muted",
+        text: "text"
+      };
+      Object.entries(colors).forEach(([key, value]) => {
+        const mapped = map[key] || key;
+        root.style.setProperty(`--moca-${mapped}`, value);
+      });
+    }
+  }, [theme, colors]);
+  return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)(import_jsx_runtime22.Fragment, { children });
+}
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  CredentialPreview,
+  GameSelector,
+  IssueCredentialButton,
+  LogoutButton,
   MocaConnectWidget,
   MocaGamingPassport,
   MocaLoginButton,
+  MocaThemeProvider,
   MocaTournamentVerifier,
   MocaUserPanel,
   MocaVerificationDashboard,
+  PlatformCard,
+  PlatformConnectButton,
+  PlatformConnectList,
+  PlatformConnectionStatus,
+  PlatformSelector,
+  RankSelector,
+  UserIdentityBadge,
   useMocaIdentity
 });
 //# sourceMappingURL=index.cjs.map

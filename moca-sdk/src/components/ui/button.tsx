@@ -13,11 +13,21 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none disabled:opacity-50 disabled:pointer-events-none";
 
     const variants = {
-      default: "bg-black text-white hover:bg-neutral-800",
-      secondary: "bg-foreground hover text-background hover:bg-neutral-200",
+      // Primary CTA → accent color
+      default:
+        "bg-[var(--moca-accent)] text-[var(--moca-accent-fg)] hover:bg-[var(--moca-accent-hover)]",
+
+      // Secondary button → surface-muted contrast
+      secondary:
+        "bg-[var(--moca-surface-muted)] text-[var(--moca-text)] hover:bg-[var(--moca-surface)]",
+
+      // Outline → transparent with border themed
       outline:
-        "border border-zinc-800 bg-white text-foreground hover:bg-zinc-100 active:bg-zinc-200",
-      ghost: "bg-transparent text-neutral-900 hover:bg-neutral-100",
+        "border border-[var(--moca-border)] bg-[var(--moca-surface)] text-[var(--moca-text)] hover:bg-[var(--moca-surface-muted)]",
+
+      // Ghost → invisible background
+      ghost:
+        "bg-transparent text-[var(--moca-text)] hover:bg-[var(--moca-surface-muted)]",
     };
 
     const sizes = {
@@ -36,4 +46,5 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     );
   }
 );
+
 Button.displayName = "Button";
