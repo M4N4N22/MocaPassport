@@ -78,6 +78,15 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --moca-bg: #e32affa7;
+  --moca-accent-fg: #000000;
+  --moca-accent-hover: #d8db1f;
+
+  --moca-surface: #ffffff;
+  --moca-surface-muted: #f5f5f5;
+  --moca-border: #e5e5e5;
+  --moca-muted: #9CA3AF;
+  --moca-text: #111111;
 }
 
 :root {
@@ -115,6 +124,15 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --moca-bg: #FAFF2A;
+  --moca-accent-fg: #000000;
+  --moca-accent-hover: #d8db1f;
+
+  --moca-surface: #111111;
+  --moca-surface-muted: #1a1a1a;
+  --moca-border: #333333;
+  --moca-muted: #A1A1A1;
+  --moca-text: #ffffff;
 }
 
 @layer base {
@@ -125,6 +143,20 @@
     @apply bg-background text-foreground;
   }
 }
+
+@theme {
+  --color-moca-bg: var(--moca-bg);
+  --color-moca-accent-fg: var(--moca-accent-fg);
+  --color-moca-accent-hover: var(--moca-accent-hover);
+
+  --color-moca-surface: var(--moca-surface);
+  --color-moca-surface-muted: var(--moca-surface-muted);
+
+  --color-moca-border: var(--moca-border);
+  --color-moca-muted: var(--moca-muted);
+  --color-moca-text: var(--moca-text);
+}
+
 
 nextjs-portal {
   display: none !important;

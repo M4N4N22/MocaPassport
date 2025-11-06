@@ -1,0 +1,26 @@
+:root {
+  --moca-accent: #faff2a;
+  --moca-accent-fg: #000000;
+  --moca-accent-hover: #d8db1f;
+
+  --moca-surface: #111111;
+  --moca-surface-muted: #1a1a1a;
+  --moca-border: #333333;
+  --moca-muted: #a1a1a1;
+  --moca-text: #ffffff;
+
+  --color-accent: var(--moca-accent);
+  --color-accent-fg: var(--moca-accent-fg);
+  --color-accent-hover: var(--moca-accent-hover);
+  --color-surface: var(--moca-surface);
+  --color-surface-muted: var(--moca-surface-muted);
+  --color-border: var(--moca-border);
+  --color-muted: var(--moca-muted);
+  --color-text: var(--moca-text);
+}
+
+[data-theme="light"] {
+  --moca-surface: #fafafa;
+  --moca-text: #111111;
+  --moca-border: #e6e6e6;
+}
